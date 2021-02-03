@@ -25,6 +25,19 @@ app.get('/api/notes', (req, res) => {
     res.send(JSON.stringify(db))
 });
 
+app.post('/api/notes', (req, res) => {
+    const newNote = req.body;
+    let newId = uuidv4();
+    let newText = {
+        id: newId,
+        title: newNote.title,
+        text: newNote.text
+    };
+    db.push(newText);
+    fs.writeFile('../../../db/db.json', JSON.stringify(db), (err) =>
+    err ? console.error(err) : console.log('Success!'));
+    return res.status(200).send();
+})
 
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../../notes.html')));
 
