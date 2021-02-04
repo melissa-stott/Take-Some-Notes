@@ -5,7 +5,7 @@
   "engines": {
     "node": "14.x"
   },
-  "main": "./Develop/server.js",
+  "main": "server.js",
   "scripts": {
     "start": "node ./Develop/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
