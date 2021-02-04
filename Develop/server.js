@@ -5,7 +5,10 @@ const app = express();
 const path = require('path');
 let db = '';
 const { v4: uuidv4 } = require('uuid');
-fs.readFile('./db/db.json','utf8', (error, data) =>
+const pathToDB = path.join(__dirname, './db/db.json');
+const pathToPublic = path.join(__dirname, './public');
+
+fs.readFile(pathToDB,'utf8', (error, data) =>
 {
     if (error) {
         throw error;
@@ -17,7 +20,7 @@ fs.readFile('./db/db.json','utf8', (error, data) =>
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static('./public'));
+app.use(express.static(pathToPublic));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
 
