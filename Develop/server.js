@@ -37,7 +37,23 @@ app.post('/api/notes', (req, res) => {
         text: newNote.text
     };
     db.push(newText);
-    fs.writeFile('../db/db.json', JSON.stringify(db), (err) =>
+    fs.writeFile(pathToDB, JSON.stringify(db), (err) =>
+    err ? console.error(err) : console.log('Success!'));
+    return res.status(200).send();
+})
+
+app.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+    let deleteID = -1;
+    for (let index = 0; index < db.length; index++) {
+        const element = db[index];
+        if (element.id === id) {
+            deleteID = index;
+            break;
+        }
+    }
+    db.splice(deleteID, 1);
+    fs.writeFile(pathToDB, JSON.stringify(db), (err) =>
     err ? console.error(err) : console.log('Success!'));
     return res.status(200).send();
 })
